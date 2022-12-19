@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Databáza</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <style>
+        table {
+            border-collapse: collapse;
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        td {
+            padding: 8px;
+            border: 0px;
+            margin: 0px;
+        }
+
+       
+
+        td:nth-child(even) {
+        background-color: rgba(0, 0, 0, 0.1);
+        min-width: 50px;
+        }
+
+        td:last-of-type {
+            text-align: left;
+        }
+
+        td:nth-of-type(3) {
+            text-align: left;
+        }
+
+         tr:nth-child(even) {background-color: rgb(202, 230, 243);}
+
+        th {
+            background-color: rgb(30, 46, 77);
+            color: rgb(255, 255, 255);
+            position: sticky;
+            top: 0px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <table id="tabulka">
+        <th>ID</th>
+        <th>Post ID</th>
+        <th>Názov</th>
+        <th>E-mail</th>
+        <th>Komentár</th>
+    </table>
+
+    <div id ="div2"></div>
+    <div id="div1"></div>
+
+    <script>
+    
+    /*let komentare = $("#div2").load("https://jsonplaceholder.typicode.com/comments/5");*/ 
+       
+$(document).ready(function(){
+
+       fetch('https://jsonplaceholder.typicode.com/comments/')
+        .then(response => response.json())
+        .then(json => {
+            
+
+            for (const comment of json) {
+               let riadok = $("<tr></tr>");
+               
+               let id = $("<td></td>").text(comment.id); 
+               $(riadok).append(id);
+
+               let postId = $("<td></td>").text(comment.postId); 
+               $(riadok).append(postId);
+               
+               let name = $("<td></td>").text(comment.name); 
+               $(riadok).append(name);
+
+               let email = $("<td></td>").text(comment.email); 
+               $(riadok).append(email);
+
+               let body = $("<td></td>").text(comment.body); 
+               $(riadok).append(body);
+               
+               $("table").append(riadok);
+            }
+            
+        })
+ });
+    </script>
+    
+</body>
+</html>
